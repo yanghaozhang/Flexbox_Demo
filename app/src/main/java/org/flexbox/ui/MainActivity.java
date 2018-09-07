@@ -43,12 +43,19 @@ public class MainActivity extends AppCompatActivity implements ItemTouchHelperCa
         //屏蔽notifyItemChanged造成的动画
 //        rv.setItemAnimator(null);
 
-        FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(this);
+        FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(this){
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
         layoutManager.setFlexDirection(FlexDirection.ROW);
         layoutManager.setJustifyContent(JustifyContent.FLEX_START);
         layoutManager.setFlexWrap(FlexWrap.WRAP);
 
         rv.setLayoutManager(layoutManager);
+        rv.setHasFixedSize(true);
+        rv.setNestedScrollingEnabled(false);
 
         adapter = new DragAdapter(this, list);
         rv.setAdapter(adapter);
